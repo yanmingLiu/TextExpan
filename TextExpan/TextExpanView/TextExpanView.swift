@@ -22,7 +22,6 @@ class TextExpanView: UIView {
 
     private var expan: Bool = false
     private let linkText = "FullText"
-    private let maxTextLength = 35
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,6 +40,20 @@ class TextExpanView: UIView {
 extension TextExpanView {
     func refreshUI() {
         nameLabel.text = "会杀猪的ioser"
+        
+        // 2行文字能显示的最大字符数 = 文本框宽度 * 2 - more所占的宽度
+        let lineTwoWidth = (UIScreen.main.bounds.width - 48 - 8 - 16 * 2) * 2 - 70
+
+        var characterWidth: CGFloat = 0
+        var maxTextLength = 0
+        for c in contentOriginText.charactersArray {
+            let lineFontWidth = String(c).width(for: UIFont.systemFont(ofSize: 16))
+            characterWidth += lineFontWidth
+            maxTextLength += 1
+            if characterWidth >= lineTwoWidth {
+                break
+            }
+        }
 
         // 全文
         let textAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.gray]
@@ -52,11 +65,19 @@ extension TextExpanView {
             let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.gray]
 
             if expan {
+                let paragraph = NSMutableParagraphStyle()
+                paragraph.lineBreakMode = .byWordWrapping
+                attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraph], range: NSRange(location: 0, length: attributedString.length))
+
                 attributedString.append(NSAttributedString(string: "\n"))
                 fullText = NSMutableAttributedString(string: "收起", attributes: attributes)
                 fullText.addAttributes([NSAttributedString.Key.link: linkText], range: NSRange(location: 0, length: fullText.length))
 
             } else {
+                let paragraph = NSMutableParagraphStyle()
+                paragraph.lineBreakMode = .byCharWrapping
+                attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraph], range: NSRange(location: 0, length: attributedString.length))
+
                 attributedString = attributedString.attributedSubstring(from: NSRange(location: 0, length: maxTextLength)) as! NSMutableAttributedString
                 fullText = NSMutableAttributedString(string: "...展开", attributes: attributes)
                 fullText.addAttributes([NSAttributedString.Key.link: linkText], range: NSRange(location: 3, length: fullText.length - 3))

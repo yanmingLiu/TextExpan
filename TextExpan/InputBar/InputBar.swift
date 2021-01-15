@@ -162,15 +162,3 @@ extension InputBar: UITextViewDelegate {
     }
 }
 
-extension String {
-    func size(for font: UIFont, size: CGSize, lineBreakMode: NSLineBreakMode) -> CGSize {
-        var attr: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
-        if lineBreakMode != .byWordWrapping {
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineBreakMode = lineBreakMode
-            attr[.paragraphStyle] = paragraphStyle
-        }
-        let rect = (self as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attr, context: nil)
-        return rect.size
-    }
-}

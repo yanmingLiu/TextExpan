@@ -42,19 +42,45 @@ extension TextExpanView {
         nameLabel.text = "会杀猪的ioser"
         
         // 2行文字能显示的最大字符数 = 文本框宽度 * 2 - more所占的宽度
-        let lineTwoWidth = (UIScreen.main.bounds.width - 48 - 8 - 16 * 2) * 2 - 70
-
-        var characterWidth: CGFloat = 0
+        let moreWidth:CGFloat = 70
         var maxTextLength = 0
+        var onelineWidth = (UIScreen.main.bounds.width - 48 - 8 - 16 * 2)
+        var curentLine = 1
+        var curentLinecharacterWidth: CGFloat = 0
+
         for c in contentOriginText.charactersArray {
-            let lineFontWidth = String(c).width(for: UIFont.systemFont(ofSize: 16))
-            characterWidth += lineFontWidth
             maxTextLength += 1
-            if characterWidth >= lineTwoWidth {
-                break
+
+            if String(c) == "\n" {
+                print("c = \(c)")
+                curentLine += 1
+                curentLinecharacterWidth = 0
+                onelineWidth -= moreWidth
+                if curentLine > 2 {
+                    maxTextLength -= 1
+                    break
+                } else {
+                    continue
+                }
+
+            } else {
+                let lineFontWidth = String(c).width(for: UIFont.systemFont(ofSize: 16))
+                curentLinecharacterWidth += lineFontWidth
+                if curentLinecharacterWidth >= onelineWidth {
+                    print("c = \(c), lineFontWidth = \(lineFontWidth), curentLinecharacterWidth = \(curentLinecharacterWidth), curentLine = \(curentLine), onelineWidth = \(onelineWidth)")
+                    curentLine += 1
+                    curentLinecharacterWidth = 0
+                    onelineWidth -= moreWidth
+                    if curentLine > 2 {
+                        break
+                    } else {
+                        continue
+                    }
+                }
             }
         }
-
+        print("maxTextLength = \(maxTextLength)")
+        
         // 全文
         let textAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.gray]
         var attributedString = NSMutableAttributedString(string: contentOriginText, attributes: textAttributes)
@@ -63,18 +89,17 @@ extension TextExpanView {
             var fullText: NSMutableAttributedString
 
             let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.gray]
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.lineSpacing = 4
 
             if expan {
-                let paragraph = NSMutableParagraphStyle()
                 paragraph.lineBreakMode = .byWordWrapping
                 attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraph], range: NSRange(location: 0, length: attributedString.length))
 
-                attributedString.append(NSAttributedString(string: "\n"))
-                fullText = NSMutableAttributedString(string: "收起", attributes: attributes)
+                fullText = NSMutableAttributedString(string: "\n收起", attributes: attributes)
                 fullText.addAttributes([NSAttributedString.Key.link: linkText], range: NSRange(location: 0, length: fullText.length))
 
             } else {
-                let paragraph = NSMutableParagraphStyle()
                 paragraph.lineBreakMode = .byCharWrapping
                 attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraph], range: NSRange(location: 0, length: attributedString.length))
 

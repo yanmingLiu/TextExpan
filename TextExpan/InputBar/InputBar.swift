@@ -17,6 +17,7 @@ class InputBar: UIView {
             emojiListView.frame = CGRect(x: 0, y: 0, width: keyboardRect.width, height: keyboardRect.height)
         }
     }
+    var maxTextLength: Int = 500
 
     private var emojiButton: UIButton!
     private var voiceButton: UIButton!
@@ -29,8 +30,9 @@ class InputBar: UIView {
 
     private var showEmoji: Bool = false
 
-    private let maxHeight: CGFloat = 64
-    private var textHeight: CGFloat = 0
+    private let maxHeight: CGFloat = 100
+    private let minHeight: CGFloat = 40
+
     private let margin: CGFloat = 8, btnwh: CGFloat = 24
 
     override init(frame: CGRect) {
@@ -142,23 +144,33 @@ extension InputBar: UITextViewDelegate {
             textView.resignFirstResponder()
             return false
         }
-        return textView.text.count + (newText.count - range.length) <= 500
+        return textView.text.count + (newText.count - range.length) <= maxTextLength
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: textView.bounds.width - textView.textContainerInset.left - textView.textContainerInset.right, height: CGFloat(MAXFLOAT))
-        let height = textView.text.size(for: textView.font!, size: size, lineBreakMode: .byCharWrapping).height
+        let bounds = textView.bounds
+        let newSize = textView.sizeThatFits(CGSize(width: bounds.width, height: CGFloat.greatestFiniteMagnitude))
+        var newHeight = CGFloat(ceilf(Float(newSize.height)))
         
-        textView.isScrollEnabled = height >= maxHeight
-
-        if textHeight != height && height < maxHeight {
-            textView.setContentOffset(.zero, animated: false)
-            textHeight = height + 1
-            textView.snp.updateConstraints { make in
-                make.height.lessThanOrEqualTo(textHeight + textView.textContainerInset.top + textView.textContainerInset.bottom)
-            }
-            layoutIfNeeded()
+        if newHeight == bounds.height {
+            return
         }
+        if newHeight <= minHeight && bounds.height <= minHeight {
+            return
+        }
+        if newHeight > maxHeight && bounds.height >= maxHeight {
+            return
+        }
+        if newHeight >= maxHeight {
+            newHeight = maxHeight
+        }
+        textView.isScrollEnabled = newHeight >= maxHeight
+
+        textView.setContentOffset(.zero, animated: false)
+        textView.snp.updateConstraints { make in
+            make.height.lessThanOrEqualTo(newHeight)
+        }
+        layoutIfNeeded()
     }
 }
 

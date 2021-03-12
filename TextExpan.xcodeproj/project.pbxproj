@@ -18,6 +18,7 @@
 		387F85E525B067AA0099FBEB /* InputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F85E425B067AA0099FBEB /* InputBar.swift */; };
 		387F85E925B06A970099FBEB /* EmojiListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F85E825B06A970099FBEB /* EmojiListView.swift */; };
 		387F872225B185E70099FBEB /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F872125B185E70099FBEB /* String+Ext.swift */; };
+		38DA15AC25ED064500B89A43 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DA15AB25ED064500B89A43 /* SecondViewController.swift */; };
 		C4551F9D8029D094959E2964 /* Pods_TextExpan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70281C060108E8308189DF7 /* Pods_TextExpan.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		387F85E425B067AA0099FBEB /* InputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBar.swift; sourceTree = "<group>"; };
 		387F85E825B06A970099FBEB /* EmojiListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListView.swift; sourceTree = "<group>"; };
 		387F872125B185E70099FBEB /* String+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		38DA15AB25ED064500B89A43 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		86B9601C3FC3F014DBC556F3 /* Pods-TextExpan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextExpan.release.xcconfig"; path = "Target Support Files/Pods-TextExpan/Pods-TextExpan.release.xcconfig"; sourceTree = "<group>"; };
 		C70281C060108E8308189DF7 /* Pods_TextExpan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextExpan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A4E4EDD994899EF4943B3C /* Pods-TextExpan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextExpan.debug.xcconfig"; path = "Target Support Files/Pods-TextExpan/Pods-TextExpan.debug.xcconfig"; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				387F85BE25B05BF50099FBEB /* AppDelegate.swift */,
 				387F85C025B05BF50099FBEB /* SceneDelegate.swift */,
 				387F85C225B05BF50099FBEB /* ViewController.swift */,
+				38DA15AB25ED064500B89A43 /* SecondViewController.swift */,
 				387F85C425B05BF50099FBEB /* Main.storyboard */,
 				387F85C725B05BF80099FBEB /* Assets.xcassets */,
 				387F85C925B05BF80099FBEB /* LaunchScreen.storyboard */,
@@ -239,6 +242,7 @@
 				387F85DC25B05C800099FBEB /* TextExpanView.swift in Sources */,
 				387F85C325B05BF50099FBEB /* ViewController.swift in Sources */,
 				387F85BF25B05BF50099FBEB /* AppDelegate.swift in Sources */,
+				38DA15AC25ED064500B89A43 /* SecondViewController.swift in Sources */,
 				387F85E525B067AA0099FBEB /* InputBar.swift in Sources */,
 				387F85E925B06A970099FBEB /* EmojiListView.swift in Sources */,
 				387F85D425B05C0D0099FBEB /* AttributeTextView.swift in Sources */,

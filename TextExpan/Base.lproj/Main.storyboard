@@ -18,11 +18,33 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="jUZ-3k-4mM"/>
+                    <navigationItem key="navigationItem" id="jUZ-3k-4mM">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="edit" id="8aJ-iZ-lAF">
+                            <connections>
+                                <segue destination="lGh-Vo-F01" kind="show" id="8Wb-G8-Use"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1039.1304347826087" y="97.767857142857139"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="soT-CO-D4E">
+            <objects>
+                <viewController id="lGh-Vo-F01" customClass="SecondViewController" customModule="TextExpan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8yR-zb-1Lv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dcq-Wt-yFO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LME-Qw-URF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ek6-Wt-lQW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1725" y="98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KRg-gu-Gv5">

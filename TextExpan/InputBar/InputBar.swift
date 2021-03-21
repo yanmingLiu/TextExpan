@@ -9,45 +9,46 @@ import Foundation
 import SnapKit
 import UIKit
 
-class InputBar: UIView {
-    var textView: UITextView!
+protocol InputBarDelegate: AnyObject {
+    func didChangeInputHeight(height: CGFloat)
+    func didChageState(state: InputBarState)
+}
 
-    var keyboardRect: CGRect! {
-        didSet {
-            emojiListView.frame = CGRect(x: 0, y: 0, width: keyboardRect.width, height: keyboardRect.height)
-        }
-    }
+enum InputBarState {
+    case normal
+    case text
+    case emoji
+    case voice
+    case add
+}
+
+class InputBar: UIView {
+    weak var delegate: InputBarDelegate?
+
     var maxTextLength: Int = 500
 
+    var barState: InputBarState = .normal
+
+    private var showKeyboardButton: Bool = false {
+        didSet {
+            let image = UIImage(named: showKeyboardButton ? "btn_keyboard" : "btn_emoji")
+            emojiButton.setBackgroundImage(image, for: .normal)
+        }
+    }
+
+    private let textViewHeightMax: CGFloat = 84
+    private let textViewHeightMin: CGFloat = 40
+    private let margin: CGFloat = 8, btnwh: CGFloat = 34
+
+    private var textView: UITextView!
     private var emojiButton: UIButton!
     private var voiceButton: UIButton!
     private var addButton: UIButton!
-
-    private lazy var emojiListView: EmojiListView = {
-        let view = EmojiListView()
-        return view
-    }()
-
-    private var showEmoji: Bool = false
-
-    private let maxHeight: CGFloat = 100
-    private let minHeight: CGFloat = 40
-
-    private let margin: CGFloat = 8, btnwh: CGFloat = 24
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         setupUI()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let bottom = margin + safeAreaInsets.bottom
-        voiceButton.snp.updateConstraints { make in
-            make.bottom.equalToSuperview().offset(-bottom)
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -60,19 +61,44 @@ class InputBar: UIView {
 }
 
 extension InputBar {
-    @objc private func clickEmojiButton() {
+    func refreshState(state: InputBarState) {
+        self.barState = state
+        showKeyboardButton = state == .emoji
+        delegate?.didChageState(state: state)
+    }
+    
+    func beginEdite() {
         textView.becomeFirstResponder()
-        showEmoji = !showEmoji
-        if showEmoji {
-            emojiListView.frame = keyboardRect
-            textView.inputView = emojiListView
-            emojiButton.setBackgroundImage(UIImage(named: "btn_keyboard"), for: .normal)
+    }
+    
+    func endEdite() {
+        textView.resignFirstResponder()
+    }
+}
 
+extension InputBar {
+    @objc private func clickEmojiButton() {
+        
+        if barState != .emoji {
+            refreshState(state: .emoji)
+            showKeyboardButton = true
         } else {
-            textView.inputView = nil
-            emojiButton.setBackgroundImage(UIImage(named: "btn_emoji"), for: .normal)
+            refreshState(state: .text)
+            showKeyboardButton = false
         }
-        textView.reloadInputViews()
+    }
+
+    @objc private func clickVoiceButton() {
+        // TODO: --
+        print("TODO: --")
+    }
+
+    @objc private func clickAddButton() {
+        if barState != .add {
+            refreshState(state: .add)
+        } else {
+            refreshState(state: .text)
+        }
     }
 }
 
@@ -80,10 +106,12 @@ extension InputBar {
     private func setupUI() {
         voiceButton = UIButton()
         voiceButton.setBackgroundImage(UIImage(named: "btn_voice"), for: .normal)
+        voiceButton.addTarget(self, action: #selector(clickVoiceButton), for: .touchUpInside)
         addSubview(voiceButton)
 
         addButton = UIButton(type: .custom)
         addButton.setBackgroundImage(UIImage(named: "btn_add"), for: .normal)
+        addButton.addTarget(self, action: #selector(clickAddButton), for: .touchUpInside)
         addSubview(addButton)
 
         emojiButton = UIButton(type: .custom)
@@ -131,7 +159,7 @@ extension InputBar {
             make.left.equalTo(voiceButton.snp.right).offset(margin)
             make.right.equalTo(emojiButton.snp.left).offset(-margin)
             make.bottom.equalTo(voiceButton)
-            make.height.lessThanOrEqualTo(32)
+            make.height.equalTo(textViewHeightMin)
         }
     }
 }
@@ -139,6 +167,10 @@ extension InputBar {
 // MARK: - UITextViewDelegate
 
 extension InputBar: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        showKeyboardButton = false
+    }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText newText: String) -> Bool {
         if newText == "\n" {
             textView.resignFirstResponder()
@@ -151,26 +183,29 @@ extension InputBar: UITextViewDelegate {
         let bounds = textView.bounds
         let newSize = textView.sizeThatFits(CGSize(width: bounds.width, height: CGFloat.greatestFiniteMagnitude))
         var newHeight = CGFloat(ceilf(Float(newSize.height)))
-        
+
         if newHeight == bounds.height {
             return
         }
-        if newHeight <= minHeight && bounds.height <= minHeight {
+        if newHeight <= textViewHeightMin && bounds.height <= textViewHeightMin {
             return
         }
-        if newHeight > maxHeight && bounds.height >= maxHeight {
+        if newHeight > textViewHeightMax && bounds.height >= textViewHeightMax {
             return
         }
-        if newHeight >= maxHeight {
-            newHeight = maxHeight
+        if newHeight >= textViewHeightMax {
+            newHeight = textViewHeightMax
         }
-        textView.isScrollEnabled = newHeight >= maxHeight
+        textView.isScrollEnabled = newHeight >= textViewHeightMax
 
         textView.setContentOffset(.zero, animated: false)
-        textView.snp.updateConstraints { make in
-            make.height.lessThanOrEqualTo(newHeight)
+
+        UIView.animate(withDuration: 0.25) {
+            textView.snp.updateConstraints { make in
+                make.height.equalTo(newHeight)
+            }
+            self.layoutIfNeeded()
         }
-        layoutIfNeeded()
+        self.delegate?.didChangeInputHeight(height: self.frame.size.height)
     }
 }
-

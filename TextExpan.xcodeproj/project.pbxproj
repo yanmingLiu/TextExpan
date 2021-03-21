@@ -16,8 +16,11 @@
 		387F85D425B05C0D0099FBEB /* AttributeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F85D325B05C0D0099FBEB /* AttributeTextView.swift */; };
 		387F85DC25B05C800099FBEB /* TextExpanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F85DB25B05C800099FBEB /* TextExpanView.swift */; };
 		387F85E525B067AA0099FBEB /* InputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F85E425B067AA0099FBEB /* InputBar.swift */; };
-		387F85E925B06A970099FBEB /* EmojiListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F85E825B06A970099FBEB /* EmojiListView.swift */; };
 		387F872225B185E70099FBEB /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F872125B185E70099FBEB /* String+Ext.swift */; };
+		38D0AC5D260622A800C3C344 /* EmojiListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0AC5C260622A800C3C344 /* EmojiListView.swift */; };
+		38D0AC74260646CC00C3C344 /* UIWindow+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0AC73260646CC00C3C344 /* UIWindow+Ext.swift */; };
+		38D0AC772607103100C3C344 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 38D0AC762607103100C3C344 /* README.md */; };
+		38D0AC9C260741FF00C3C344 /* InputKeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0AC9B260741FF00C3C344 /* InputKeyboardHandler.swift */; };
 		38DA15AC25ED064500B89A43 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DA15AB25ED064500B89A43 /* SecondViewController.swift */; };
 		C4551F9D8029D094959E2964 /* Pods_TextExpan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70281C060108E8308189DF7 /* Pods_TextExpan.framework */; };
 /* End PBXBuildFile section */
@@ -34,8 +37,11 @@
 		387F85D325B05C0D0099FBEB /* AttributeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTextView.swift; sourceTree = "<group>"; };
 		387F85DB25B05C800099FBEB /* TextExpanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExpanView.swift; sourceTree = "<group>"; };
 		387F85E425B067AA0099FBEB /* InputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBar.swift; sourceTree = "<group>"; };
-		387F85E825B06A970099FBEB /* EmojiListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListView.swift; sourceTree = "<group>"; };
 		387F872125B185E70099FBEB /* String+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		38D0AC5C260622A800C3C344 /* EmojiListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiListView.swift; sourceTree = "<group>"; };
+		38D0AC73260646CC00C3C344 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
+		38D0AC762607103100C3C344 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		38D0AC9B260741FF00C3C344 /* InputKeyboardHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputKeyboardHandler.swift; sourceTree = "<group>"; };
 		38DA15AB25ED064500B89A43 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		86B9601C3FC3F014DBC556F3 /* Pods-TextExpan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextExpan.release.xcconfig"; path = "Target Support Files/Pods-TextExpan/Pods-TextExpan.release.xcconfig"; sourceTree = "<group>"; };
 		C70281C060108E8308189DF7 /* Pods_TextExpan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextExpan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +72,7 @@
 		387F85B225B05BF50099FBEB = {
 			isa = PBXGroup;
 			children = (
+				38D0AC762607103100C3C344 /* README.md */,
 				387F85BD25B05BF50099FBEB /* TextExpan */,
 				387F85BC25B05BF50099FBEB /* Products */,
 				2A7FDAECC46AE76A5AC11482 /* Pods */,
@@ -111,8 +118,10 @@
 		387F85E325B067850099FBEB /* InputBar */ = {
 			isa = PBXGroup;
 			children = (
+				38D0AC73260646CC00C3C344 /* UIWindow+Ext.swift */,
 				387F85E425B067AA0099FBEB /* InputBar.swift */,
-				387F85E825B06A970099FBEB /* EmojiListView.swift */,
+				38D0AC5C260622A800C3C344 /* EmojiListView.swift */,
+				38D0AC9B260741FF00C3C344 /* InputKeyboardHandler.swift */,
 			);
 			path = InputBar;
 			sourceTree = "<group>";
@@ -186,6 +195,7 @@
 			files = (
 				387F85CB25B05BF80099FBEB /* LaunchScreen.storyboard in Resources */,
 				387F85C825B05BF80099FBEB /* Assets.xcassets in Resources */,
+				38D0AC772607103100C3C344 /* README.md in Resources */,
 				387F85C625B05BF50099FBEB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,13 +250,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				387F85DC25B05C800099FBEB /* TextExpanView.swift in Sources */,
+				38D0AC74260646CC00C3C344 /* UIWindow+Ext.swift in Sources */,
 				387F85C325B05BF50099FBEB /* ViewController.swift in Sources */,
 				387F85BF25B05BF50099FBEB /* AppDelegate.swift in Sources */,
 				38DA15AC25ED064500B89A43 /* SecondViewController.swift in Sources */,
+				38D0AC5D260622A800C3C344 /* EmojiListView.swift in Sources */,
 				387F85E525B067AA0099FBEB /* InputBar.swift in Sources */,
-				387F85E925B06A970099FBEB /* EmojiListView.swift in Sources */,
 				387F85D425B05C0D0099FBEB /* AttributeTextView.swift in Sources */,
 				387F872225B185E70099FBEB /* String+Ext.swift in Sources */,
+				38D0AC9C260741FF00C3C344 /* InputKeyboardHandler.swift in Sources */,
 				387F85C125B05BF50099FBEB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +408,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S68QCFB8Q7;
 				INFOPLIST_FILE = TextExpan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -415,6 +428,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S68QCFB8Q7;
 				INFOPLIST_FILE = TextExpan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

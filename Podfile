@@ -9,4 +9,6 @@ target 'TextExpan' do
 
     pod 'SnapKit'
 
+    pod 'LookinServer', :configurations => ['Debug']
+
 end
